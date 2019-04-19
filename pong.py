@@ -12,11 +12,11 @@ PADDLE_WIDTH = 20
 PADDLE_HEIGHT = 100
 
 BLACK = (0, 0, 0)
-GRAY = (120, 120, 120)
+GRAY = (105,105,105)
 GREEN = (0, 255, 0)
 WHITE = (255, 255, 255)
 LIGHT_BLUE = (129, 203, 248)
-BROWN = (222, 184, 135)
+CYAN = (0,139,139)
 
 PLAYER_MOVEMENT_UNITS = 5
 COMPUTER_MOVEMENT_UNITS = 6
@@ -94,7 +94,6 @@ class Paddle:
             y1 = (-b - (sqrt_discriminant)) / (2 * a)
             return (True, self.y < y0 < self.y + self.height or self.y < y1 < self.y + self.height)
 
-
 def computer_predict(ball, computer):
     predicted_dir = ball.direction_y
     y = ball.y
@@ -111,7 +110,7 @@ def ai_move(ball, computer):
             computer.y += COMPUTER_MOVEMENT_UNITS * (-1 if predicted_y < computer.y else 1)
 
 def display_text(text, x, y):
-    myfont = pygame.font.SysFont('Comic Sans MS', 30)
+    myfont = pygame.font.SysFont('Arial', 30)
     textsurface = myfont.render(text, False, WHITE)
     screen.blit(textsurface, (x, y))
 
@@ -123,13 +122,13 @@ pygame.font.init()
 ball = Ball()
 ball.throw_in()
 player = Paddle(x = 30, color = LIGHT_BLUE)
-computer = Paddle(x = SCREEN_WIDTH - 60, color = BROWN)
+computer = Paddle(x = SCREEN_WIDTH - 80, color = CYAN)
 round_winner = None
 tick = 0
 last_key = 1
 while True:
     pygame.time.delay(FRAME_DELAY)
-    screen.fill(BLACK)
+    screen.fill(GRAY)
 
     ball.move()
     ball.keep_on_screen()
@@ -172,8 +171,7 @@ while True:
 
     # Computer movement
     ai_move(ball, computer)
-
-    display_text('Player', 150, 0)
+    display_text('Self', 150, 0)
     display_text(str(player.score), 180, 45)
     display_text('Computer', 400, 0)
     display_text(str(computer.score), 460, 45)
@@ -182,7 +180,7 @@ while True:
     pygame.draw.circle(screen, ball.color, (ball.x, ball.y), ball.radius)
     for i in range(1, SCREEN_HEIGHT // 10):
         if i % 2 == 0:
-            pygame.draw.rect(screen, GRAY, (SCREEN_WIDTH // 2, i * 10, 10, 10), 0)
+            pygame.draw.rect(screen, WHITE, (SCREEN_WIDTH // 2, i * 10, 10, 10), 0)
     pygame.display.update()
 
     # Event handling
