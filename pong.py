@@ -166,7 +166,7 @@ while True:
 
     # Speed up the game by one unit in every 1000 ticks
     tick += 1
-    if tick % 900 == 0:
+    if tick % 400 == 0:
         ball.speed += 1
 
     # Computer movement
